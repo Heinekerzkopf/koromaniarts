@@ -1,0 +1,156 @@
+/* Общий стиль для навигационной панели */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.navbar:hover {
+    background-color: #f9f9f9;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: #f39c12;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #f39c12;
+    transform: translateY(-2px);
+}
+
+.nav-links .active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #f39c12;
+    border-radius: 2px;
+}
+
+.admin-icon {
+    font-size: 24px;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.admin-icon:hover {
+    color: #f39c12;
+    transform: rotate(360deg);
+}
+
+/* Адаптивность */
+
+/* Для планшетов */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 25px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.open .nav-links {
+        display: flex;
+    }
+
+    .nav-links a {
+        font-size: 20px;
+    }
+
+    .admin-icon {
+        font-size: 28px;
+    }
+
+    .logo {
+        font-size: 26px;
+    }
+}
+
+/* Для мобильных устройств */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 18px;
+    }
+
+    .admin-icon {
+        font-size: 22px;
+    }
+}
+
+/* Кнопка гамбургер-меню для мобильных устройств */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Показываем кнопку на мобильных устройствах */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+}

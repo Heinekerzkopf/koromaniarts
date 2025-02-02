@@ -1,0 +1,166 @@
+/* General Styles */
+.admin {
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #f6f8fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.form-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-div input {
+    width: 215px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #2b2b2b;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Form Containers */
+.login-form, .image-upload-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form:hover, .image-upload-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Input Fields */
+input[type="text"], input[type="password"], input[type="file"], textarea {
+    border: 1px solid #d1d9e6;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    background-color: #fafafa;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2b2b2b;
+    margin-bottom: 5px;
+}
+
+/* Buttons */
+button {
+    padding: 14px;
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.logout-btn {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    margin-top: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Error Message */
+.error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 8px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .login-form, .image-upload-form {
+        padding: 25px;
+    }
+
+    input, textarea, button {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .login-form, .image-upload-form {
+        padding: 20px;
+        max-width: 350px;
+    }
+
+    input, textarea {
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 12px;
+    }
+}

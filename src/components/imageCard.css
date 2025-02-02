@@ -1,0 +1,75 @@
+.image-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .image-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+  
+  .image-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+  
+  .image-card .content {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .image-card .content h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+    transition: color 0.3s ease;
+  }
+  
+  .image-card .content p {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+  }
+  
+  .image-card:hover .content h3 {
+    color: #f39c12;
+  }
+  
+  .image-card:hover .content p {
+    color: #555;
+  }
+  
+  .image-card .modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image-card .modal img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+  
+  .image-card:hover .modal {
+    display: flex;
+  }
+  
