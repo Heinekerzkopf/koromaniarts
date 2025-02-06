@@ -2,34 +2,39 @@ import React, { useState, useEffect } from 'react';
 import './home.css';
 import ImageCard from '../components/ImageCard';
 import Modal from '../components/Modal';
-import { getImages } from '../api/api'; // Функция для получения картин с бэкенда
+import EditModal from '../components/EditModal'; // Assuming this component is still available
+import { getImages } from '../api/api';
 
 const Home = () => {
     const [images, setImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
 
-    // Загружаем картины с бэкенда при монтировании компонента
     useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const response = await getImages(); // Получаем данные с бэкенда
-                setImages(response.data); // Устанавливаем изображения в состояние
-            } catch (error) {
-                console.error("Error fetching images:", error);
-            }
-        };
-
         fetchImages();
     }, []);
 
-    // Открытие модального окна
-    const openModal = (image) => {
-        setSelectedImage(image); // Устанавливаем выбранное изображение
+    const fetchImages = async () => {
+        try {
+            const response = await getImages();
+            setImages(response.data);
+        } catch (error) {
+            console.error('Ошибка загрузки изображений:', error);
+        }
     };
 
-    // Закрытие модального окна
+    const openModal = (image) => {
+        setSelectedImage(image);
+        setIsEditing(false); // Make sure the edit modal is not open
+    };
+
+    const openEditModal = (image) => {
+        setSelectedImage(image);
+        setIsEditing(true); // Set editing mode when "Edit" button is clicked
+    };
+
     const closeModal = () => {
-        setSelectedImage(null); // Сбрасываем выбранное изображение
+        setSelectedImage(null);
     };
 
     return (
@@ -38,15 +43,24 @@ const Home = () => {
             <div className="gallery">
                 {images.map((image) => (
                     <ImageCard
-                        key={image._id} // Используем _id, если это MongoDB ID
+                        key={image._id}
                         image={image}
-                        onClick={() => openModal(image)} // При клике открываем модальное окно
+                        onClick={openModal} // Regular modal open
+                        onEditClick={openEditModal} // Edit modal open
                     />
                 ))}
             </div>
 
-            {selectedImage && (
-                <Modal image={selectedImage} onClose={closeModal} /> // Передаем выбранное изображение в Modal
+            {selectedImage && !isEditing && (
+                <Modal image={selectedImage} onClose={closeModal} />
+            )}
+
+            {selectedImage && isEditing && (
+                <EditModal 
+                    image={selectedImage} 
+                    onClose={closeModal} 
+                    onUpdate={fetchImages} 
+                />
             )}
         </div>
     );

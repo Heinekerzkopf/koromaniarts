@@ -2,7 +2,7 @@ import React from 'react';
 import './modal.css';
 
 const Modal = ({ image, onClose }) => {
-  if (!image) return null; // Если изображения нет, не рендерим модальное окно
+  if (!image) return null; // If no image, do not render the modal
 
   return (
     <div className="modal-overlay" onClick={onClose}>

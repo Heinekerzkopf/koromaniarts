@@ -17,6 +17,7 @@
 
 .logo {
     font-size: 28px;
+    z-index: 2;
     font-weight: 700;
     color: #333;
     letter-spacing: 2px;
@@ -43,7 +44,9 @@
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 1px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -52,7 +55,7 @@
 }
 
 .nav-links .active::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -5px;
     left: 0;
@@ -63,9 +66,12 @@
 }
 
 .admin-icon {
+    z-index: 2;
     font-size: 24px;
     color: #333;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .admin-icon:hover {
@@ -78,11 +84,11 @@
 /* Для планшетов */
 @media (max-width: 768px) {
     .navbar {
-        padding: 15px 25px;
+        padding: 25px 25px;
     }
 
     .logo {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .nav-links {
@@ -115,42 +121,79 @@
     }
 }
 
-/* Для мобильных устройств */
-@media (max-width: 480px) {
-    .navbar {
-        padding: 10px 20px;
-    }
-
-    .logo {
-        font-size: 22px;
-    }
-
-    .nav-links {
-        gap: 10px;
-    }
-
-    .nav-links a {
-        font-size: 18px;
-    }
-
-    .admin-icon {
-        font-size: 22px;
-    }
+/* Общие стили для заднего фона */
+.nav-links-bg {
+    list-style: none;
+    z-index: 1001;
+}
+.nav-links-bg li {
+    text-transform: uppercase;
+    margin-bottom: 25px;
 }
 
-/* Кнопка гамбургер-меню для мобильных устройств */
-.menu-toggle {
+.nav-links-bg li:last-child {
+    margin-bottom: 0;
+}
+
+.nav-links-bg a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
     display: none;
-    background: none;
-    border: none;
-    font-size: 30px;
-    color: #333;
-    cursor: pointer;
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    right: 90px;
+    top: 25px;
 }
 
-/* Показываем кнопку на мобильных устройствах */
+/* Для мобильных устройств */
 @media (max-width: 768px) {
-    .menu-toggle {
+    .bm-burger-button {
         display: block;
     }
+    .nav-links-bg {
+        width: 80%;
+        max-width: 400px;
+    }
 }
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+    background: #000000;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+    height: 30px;
+    width: 30px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+    background: #ffffff;
+}
+
+/*
+  Sidebar wrapper styles
+  Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+  */
+.bm-menu-wrap {
+    position: fixed;
+    height: 100%;
+}
+
+/* General sidebar styles */
+.bm-menu {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+}
+
+
