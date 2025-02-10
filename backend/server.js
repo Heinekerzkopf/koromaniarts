@@ -7,6 +7,8 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+// const LOCALE_URL = 'http://localhost:3000'
+// https://ilonakoromanarts.onrender.com
 
 // DB connection
 connectDB();
