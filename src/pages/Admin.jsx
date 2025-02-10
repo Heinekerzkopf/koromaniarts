@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './admin.css';
 import axios from 'axios';
+import API_URL from "../api/api"
 
 const Admin = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +22,7 @@ const Admin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5001/api/auth/login', {
+            const response = await axios.post(`${API_URL }/api/auth/login`, {
                 username,
                 password
             });
@@ -58,7 +59,7 @@ const Admin = () => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5001/api/upload', formData, {
+            const response = await axios.post(`${API_URL }/api/upload`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',

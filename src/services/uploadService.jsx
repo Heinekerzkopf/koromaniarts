@@ -1,4 +1,6 @@
 import axios from 'axios';
+import API_URL from "../api/api"
+
 
 const uploadImage = async (file) => {
     const token = localStorage.getItem('token');
@@ -11,7 +13,7 @@ const uploadImage = async (file) => {
     formData.append('image', file);
 
     try {
-        const response = await axios.post('http://localhost:5000/api/upload', formData, {
+        const response = await axios.post(`${API_URL}/api/upload`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from "../api/api";
 
 const UploadImage = () => {
     const [image, setImage] = useState(null);
@@ -15,7 +16,7 @@ const UploadImage = () => {
         formData.append('image', image);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/upload', formData, {
+            const response = await axios.post(`${API_URL}/api/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`, // Пример использования токена для аутентификации

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from "../api/api";
 import './imageCard.css';
 
 const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
@@ -33,7 +34,7 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
                 return;
             }
 
-            const response = await axios.delete(`http://localhost:5001/api/images/${image._id}`, {
+            const response = await axios.delete(`${API_URL}/api/images/${image._id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -51,7 +52,7 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
 
     return (
         <div className="image-card" onClick={handleCardClick}>
-            <img src={`http://localhost:5001${image.imageUrl}`} alt={image.title} />
+            <img src={`${API_URL}${image.imageUrl}`} alt={image.title} />
             <h3>{image.title}</h3>
             <p>{image.description}</p>
 

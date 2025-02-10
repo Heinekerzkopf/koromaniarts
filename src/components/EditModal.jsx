@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from "../api/api";
 import './editModal.css'
 
 const EditModal = ({ image, onClose, onUpdate }) => {
@@ -15,7 +16,7 @@ const EditModal = ({ image, onClose, onUpdate }) => {
                 return;
             }
 
-            await axios.put(`http://localhost:5001/api/images/${image._id}`, {
+            await axios.put(`${API_URL}/api/images/${image._id}`, {
                 title,
                 description
             }, {

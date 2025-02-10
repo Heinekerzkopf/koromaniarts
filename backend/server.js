@@ -13,7 +13,7 @@ connectDB();
 
 // CORS settings
 app.use(cors({
-    origin: 'http://localhost:3000', // Разрешаем запросы с фронтенда
+    origin: 'https://ilonakoromanarts.onrender.com', // Разрешаем запросы с фронтенда
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
