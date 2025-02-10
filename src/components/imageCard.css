@@ -5,3 +5,11 @@
     width: 90%;
     margin-top: 10px;
 }
+
+.delete-btn {
+    background-color: #000000;
+    border: 1px solid black;
+    color: #fff;
+    width: 90%;
+    margin-top: 10px;
+}

@@ -6,7 +6,7 @@ import "../styles/navbar.css";
 const Navbar = () => {
     return (
         <nav className="navbar">
-            <div className="logo">koromani</div>
+            <div className="logo">ilona K.</div>
             <ul className='nav-links'>
                 <li>
                     <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
@@ -32,7 +32,6 @@ const Navbar = () => {
                     </li>
                 </ul>
             </Menu>
-
             <NavLink to="/admin" className="admin-icon">
                 <FaUser size={30} />
             </NavLink>

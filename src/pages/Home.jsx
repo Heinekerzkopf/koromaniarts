@@ -37,6 +37,11 @@ const Home = () => {
         setSelectedImage(null);
     };
 
+    const handleDelete = (id) => {
+        setImages(images.filter(image => image._id !== id));
+    };
+
+
     return (
         <div className="home">
             <h1>Gallery</h1>
@@ -47,6 +52,7 @@ const Home = () => {
                         image={image}
                         onClick={openModal} // Regular modal open
                         onEditClick={openEditModal} // Edit modal open
+                        onDelete={handleDelete}
                     />
                 ))}
             </div>
@@ -56,10 +62,10 @@ const Home = () => {
             )}
 
             {selectedImage && isEditing && (
-                <EditModal 
-                    image={selectedImage} 
-                    onClose={closeModal} 
-                    onUpdate={fetchImages} 
+                <EditModal
+                    image={selectedImage}
+                    onClose={closeModal}
+                    onUpdate={fetchImages}
                 />
             )}
         </div>

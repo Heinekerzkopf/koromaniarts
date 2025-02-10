@@ -8,10 +8,10 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Подключение к базе данных
+// DB connection
 connectDB();
 
-// Настройка CORS
+// CORS settings
 app.use(cors({
     origin: 'http://localhost:3000', // Разрешаем запросы с фронтенда
     methods: 'GET,POST,PUT,DELETE',
