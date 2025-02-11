@@ -49,3 +49,19 @@
     background-color: #000000;
     color: #fff;
 }
+
+
+@media (max-width: 768px) {
+    .about-container {
+        margin-top: 75px;
+    }
+    
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+}
