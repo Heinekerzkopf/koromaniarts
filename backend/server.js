@@ -7,6 +7,9 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const corsOrigin = process.env.NODE_ENV === 'production'
+    ? process.env.CORS_ORIGIN_PROD
+    : process.env.CORS_ORIGIN_DEV;
 // const LOCALE_URL = 'http://localhost:3000'
 // https://ilonakoromanarts.onrender.com
 
@@ -15,7 +18,7 @@ connectDB();
 
 // CORS settings
 app.use(cors({
-    origin: 'https://ilonakoromanarts.onrender.com', // Разрешаем запросы с фронтенда
+    origin: corsOrigin, // Разрешаем запросы с фронтенда
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
