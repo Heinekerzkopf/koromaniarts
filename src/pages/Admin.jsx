@@ -66,12 +66,14 @@ const Admin = () => {
                 }
             });
 
+            alert('Picture was uploaded successfully!')
             console.log('Изображение успешно загружено:', response.data);
             setTitle('');
             setDescription('');
             setImage(null);
         } catch (error) {
             console.error('Ошибка при загрузке изображения:', error);
+            alert('Something went wrong... Try again or call Ervin')
         }
     };
 
