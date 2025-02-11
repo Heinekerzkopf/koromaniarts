@@ -30,6 +30,7 @@ const Admin = () => {
             localStorage.setItem('token', token);
             setIsLoggedIn(true);
         } catch (error) {
+            console.log('API URL:', API_URL);
             console.error('Ошибка при логине:', error.response?.data || error.message);
         }
     };
