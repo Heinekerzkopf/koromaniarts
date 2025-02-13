@@ -21,8 +21,13 @@ const uploadImage = async (file) => {
         });
         return response.data;
     } catch (error) {
-        console.error('Ошибка загрузки:', error);
-        throw error;
+        if (error.response) {
+            throw new Error(`Ошибка: ${error.response.data.message || error.response.statusText}`);
+        } else if (error.request) {
+            throw new Error('Нет ответа от сервера. Пожалуйста, проверьте ваше соединение.');
+        } else {
+            throw new Error('Что-то пошло не так. Попробуйте снова.');
+        }
     }
 };
 

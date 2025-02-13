@@ -27,7 +27,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 // Инициализация multer
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter, limits: { fileSize: 10 * 1024 * 1024 }  });
 
 // Защищённый маршрут для загрузки изображений
 router.post('/', authMiddleware, upload.single('image'), async (req, res) => {

@@ -9,17 +9,21 @@ const Home = () => {
     const [images, setImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [loading, setLoading] = useState(false); // Добавляем состояние для загрузки
 
     useEffect(() => {
         fetchImages();
     }, []);
 
     const fetchImages = async () => {
+        setLoading(true); // Устанавливаем состояние загрузки в true перед загрузкой данных
         try {
             const response = await getImages();
             setImages(response.data);
         } catch (error) {
             console.error('Ошибка загрузки изображений:', error);
+        } finally {
+            setLoading(false); // После завершения загрузки, убираем индикатор
         }
     };
 
@@ -41,10 +45,17 @@ const Home = () => {
         setImages(images.filter(image => image._id !== id));
     };
 
-
     return (
         <div className="home">
             <h1>Gallery</h1>
+
+            {/* Индикатор загрузки */}
+            {loading && (
+                <div className="loading-indicator">
+                    <div className="circle"></div>
+                </div>
+            )}
+
             <div className="gallery">
                 {images.map((image) => (
                     <ImageCard

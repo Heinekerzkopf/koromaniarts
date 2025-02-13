@@ -10,8 +10,6 @@ const PORT = process.env.PORT || 5001;
 const corsOrigin = process.env.NODE_ENV === 'production'
     ? process.env.CORS_ORIGIN_PROD
     : process.env.CORS_ORIGIN_DEV;
-// const LOCALE_URL = 'http://localhost:3000'
-// https://ilonakoromanarts.onrender.com
 
 // DB connection
 connectDB();

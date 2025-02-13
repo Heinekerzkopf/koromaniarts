@@ -11,6 +11,8 @@ const Admin = () => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); // Добавляем состояние загрузки
+    const [success, setSuccess] = useState(false); // Для успешной загрузки
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -22,7 +24,7 @@ const Admin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${API_URL }/api/auth/login`, {
+            const response = await axios.post(`${API_URL}/api/auth/login`, {
                 username,
                 password
             });
@@ -32,12 +34,13 @@ const Admin = () => {
         } catch (error) {
             console.log('API URL:', API_URL);
             console.error('Ошибка при логине:', error.response?.data || error.message);
+            setError('Неверный логин или пароль');
         }
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Удаляем токен
-        setIsLoggedIn(false); // Обновляем состояние
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
         setUsername('');
         setPassword('');
     };
@@ -48,6 +51,12 @@ const Admin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!image) {
+            setError('Пожалуйста, выберите изображение.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
@@ -60,21 +69,24 @@ const Admin = () => {
                 return;
             }
 
-            const response = await axios.post(`${API_URL }/api/upload`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                }
-            });
+            setLoading(true); // Начинаем загрузку
+            // const response = await axios.post(`${API_URL}/api/upload`, formData, {
+            //     headers: {
+            //         'Authorization': `Bearer ${token}`,
+            //         'Content-Type': 'multipart/form-data',
+            //     }
+            // });
 
-            alert('Picture was uploaded successfully!')
-            console.log('Изображение успешно загружено:', response.data);
+            setLoading(false); // Завершаем загрузку
+            setSuccess(true);  // Показываем сообщение об успехе
+            alert('Изображение загружено успешно!');
             setTitle('');
             setDescription('');
             setImage(null);
         } catch (error) {
+            setLoading(false); // Завершаем загрузку
             console.error('Ошибка при загрузке изображения:', error);
-            alert('Something went wrong... Try again or call Ervin')
+            setError('Что-то пошло не так... Попробуйте снова.');
         }
     };
 
@@ -140,13 +152,14 @@ const Admin = () => {
                                 required
                             />
                         </div>
-                        <button type="submit">Upload Picture</button>
-                        {/* Кнопка Logout */}
+                        <button type="submit" disabled={loading}>Upload Picture</button>
+                        {loading && <div>Uploading...</div>} 
+                        {success && <div style={{ color: 'green' }}>Picture uploaded successfully!</div>} 
+                        {error && <div style={{ color: 'red' }}>{error}</div>}
                         <button className="logout-btn" onClick={handleLogout}>
                             Logout
                         </button>
                     </form>
-
                 </div>
             )}
         </div>
