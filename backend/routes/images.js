@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 router.get('/', async (req, res) => {
     try {
         const images = await Image.find().sort({ createdAt: -1 });
-        res.json(images); // Отправляем все изображения, включая массив imageUrls
+        res.json(images); 
     } catch (error) {
         res.status(500).json({ message: 'Ошибка при получении изображений' });
     }

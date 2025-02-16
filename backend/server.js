@@ -50,7 +50,13 @@ app.post('/api/upload', upload.array('images', 5), async (req, res) => {
         res.status(500).json({ message: 'Ошибка при загрузке изображений' });
     }
 });
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+    setHeaders: (res) => {
+        res.setHeader('Access-Control-Allow-Origin', corsOrigin);
+    }
+}));
+
 
 
 app.listen(PORT, () => {

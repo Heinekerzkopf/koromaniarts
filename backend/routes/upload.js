@@ -42,7 +42,7 @@ router.post('/', authMiddleware, upload.array('images', 5), async (req, res) => 
     const newImage = new Image({
       title,
       description,
-      imageUrls // Сохраняем массив путей вместо одного imageUrl
+      imageUrls 
     });
 
     await newImage.save();
