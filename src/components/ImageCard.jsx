@@ -40,7 +40,7 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
 
             if (response.status === 200) {
                 console.log("Image deleted successfully");
-                onDelete(image._id);
+                onDelete(image._id);  // Обновление состояния на главной
             } else {
                 console.error("Failed to delete image:", response.status);
             }
@@ -48,11 +48,15 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
             console.error("Error deleting image:", error);
         }
     };
-
+    
 
     return (
         <div className="image-card" onClick={handleCardClick}>
-            <img src={`${API_URL}${image.imageUrl}`} alt={image.title} />
+            {image.imageUrls && image.imageUrls.length > 0 ? (
+                <img src={`${API_URL}${image.imageUrls[0]}`} alt={image.title} />
+            ) : (
+                <p>No image available</p>
+            )}
             <h3>{image.title}</h3>
             <p>{image.description}</p>
 

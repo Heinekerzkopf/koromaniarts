@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './admin.css';
 import axios from 'axios';
-import API_URL from "../api/api"
+import API_URL from "../api/api";
 
 const Admin = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,10 +9,10 @@ const Admin = () => {
     const [password, setPassword] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false); // Добавляем состояние загрузки
-    const [success, setSuccess] = useState(false); // Для успешной загрузки
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -46,21 +46,24 @@ const Admin = () => {
     };
 
     const handleFileChange = (e) => {
-        setImage(e.target.files[0]);
+        const selectedFiles = Array.from(e.target.files).slice(0, 5);
+        setImages(selectedFiles);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!image) {
-            setError('Пожалуйста, выберите изображение.');
+        if (images.length === 0) {
+            setError('Выберите хотя бы одно изображение.');
             return;
         }
 
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('image', image);
+        images.forEach((image, index) => {
+            formData.append(`images`, image); // На сервере жди массив `images`
+        });
 
         try {
             const token = localStorage.getItem('token');
@@ -70,19 +73,21 @@ const Admin = () => {
             }
 
             setLoading(true); // Начинаем загрузку
-            // const response = await axios.post(`${API_URL}/api/upload`, formData, {
-            //     headers: {
-            //         'Authorization': `Bearer ${token}`,
-            //         'Content-Type': 'multipart/form-data',
-            //     }
-            // });
+
+            // Отправляем данные на сервер
+            const response = await axios.post(`${API_URL}/api/upload`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
 
             setLoading(false); // Завершаем загрузку
             setSuccess(true);  // Показываем сообщение об успехе
             alert('Изображение загружено успешно!');
             setTitle('');
             setDescription('');
-            setImage(null);
+            setImages([]);
         } catch (error) {
             setLoading(false); // Завершаем загрузку
             console.error('Ошибка при загрузке изображения:', error);
@@ -150,11 +155,12 @@ const Admin = () => {
                                 id="image"
                                 onChange={handleFileChange}
                                 required
+                                multiple
                             />
                         </div>
                         <button type="submit" disabled={loading}>Upload Picture</button>
-                        {loading && <div>Uploading...</div>} 
-                        {success && <div style={{ color: 'green' }}>Picture uploaded successfully!</div>} 
+                        {loading && <div>Uploading...</div>}
+                        {success && <div style={{ color: 'green' }}>Picture uploaded successfully!</div>}
                         {error && <div style={{ color: 'red' }}>{error}</div>}
                         <button className="logout-btn" onClick={handleLogout}>
                             Logout

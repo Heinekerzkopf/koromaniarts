@@ -3,15 +3,21 @@ import './modal.css';
 import API_URL from "../api/api";
 
 const Modal = ({ image, onClose }) => {
-  if (!image) return null; // If no image, do not render the modal
+  if (!image) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}></button>
-        <img src={`${API_URL}${image.imageUrl}`} alt={image.title} className="modal-image" />
+        
         <h2>{image.title}</h2>
         <p>{image.description}</p>
+
+        <div className="modal-images">
+          {image.imageUrls.map((url, index) => (
+            <img key={index} src={`${API_URL}${url}`} alt={`${image.title} ${index + 1}`} className="modal-image" />
+          ))}
+        </div>
       </div>
     </div>
   );

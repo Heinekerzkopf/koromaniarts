@@ -2,47 +2,50 @@ import React, { useState, useEffect } from 'react';
 import './home.css';
 import ImageCard from '../components/ImageCard';
 import Modal from '../components/Modal';
-import EditModal from '../components/EditModal'; // Assuming this component is still available
+import EditModal from '../components/EditModal'; 
+import API_URL from "../api/api"
 import { getImages } from '../api/api';
+import axios from 'axios';
 
 const Home = () => {
     const [images, setImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [loading, setLoading] = useState(false); // Добавляем состояние для загрузки
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchImages();
     }, []);
 
     const fetchImages = async () => {
-        setLoading(true); // Устанавливаем состояние загрузки в true перед загрузкой данных
+        setLoading(true);
         try {
             const response = await getImages();
             setImages(response.data);
         } catch (error) {
             console.error('Ошибка загрузки изображений:', error);
         } finally {
-            setLoading(false); // После завершения загрузки, убираем индикатор
+            setLoading(false);
         }
     };
 
     const openModal = (image) => {
         setSelectedImage(image);
-        setIsEditing(false); // Make sure the edit modal is not open
+        setIsEditing(false);
     };
 
     const openEditModal = (image) => {
         setSelectedImage(image);
-        setIsEditing(true); // Set editing mode when "Edit" button is clicked
+        setIsEditing(true);
     };
 
     const closeModal = () => {
         setSelectedImage(null);
     };
 
-    const handleDelete = (id) => {
-        setImages(images.filter(image => image._id !== id));
+    // Обработка удаления изображения
+    const handleDelete = async (id) => {
+        setImages(images.filter(image => image._id !== id));  
     };
 
     return (
@@ -61,13 +64,14 @@ const Home = () => {
                     <ImageCard
                         key={image._id}
                         image={image}
-                        onClick={openModal} // Regular modal open
-                        onEditClick={openEditModal} // Edit modal open
+                        onClick={openModal}
+                        onEditClick={openEditModal}
                         onDelete={handleDelete}
                     />
                 ))}
             </div>
 
+            {/* Модальные окна для просмотра и редактирования */}
             {selectedImage && !isEditing && (
                 <Modal image={selectedImage} onClose={closeModal} />
             )}

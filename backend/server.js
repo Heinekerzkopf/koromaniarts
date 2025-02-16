@@ -3,6 +3,7 @@ const cors = require('cors');
 const connectDB = require('./config/database');
 const path = require('path');
 const multer = require('multer');
+const Image = require('./models/Image'); 
 require('dotenv').config();
 
 const app = express();
@@ -31,10 +32,23 @@ app.use('/api/images', require('./routes/images'));
 
 const upload = multer({ dest: 'uploads/' });
 
-app.post('/api/upload', upload.single('image'), (req, res) => {
-    // Логика для работы с изображением
-    console.log(req.file); // Выведет данные о загруженном файле
-    res.send('Файл успешно загружен');
+app.post('/api/upload', upload.array('images', 5), async (req, res) => {
+    try {
+        const imageUrls = req.files.map(file => `/uploads/${file.filename}`);
+        const { title, description } = req.body;
+
+        const image = new Image({
+            title, 
+            description, 
+            imageUrls
+        });
+        
+        await image.save(); // Сохраняем в базе данных
+        res.json({ message: 'Изображения успешно загружены', imageUrls });
+    } catch (error) {
+        console.error('Ошибка при загрузке изображений:', error);
+        res.status(500).json({ message: 'Ошибка при загрузке изображений' });
+    }
 });
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

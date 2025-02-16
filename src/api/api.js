@@ -21,10 +21,18 @@ export const uploadImage = async (formData) => {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        return response.data;
+
+        if (response.data && response.data.imageUrls) {
+            // Возвращаем массив imageUrls
+            return response.data.imageUrls;
+        }
+
+        // Если сервер не вернул ожидаемые данные
+        throw new Error('Ошибка при получении URL изображений');
     } catch (error) {
         console.error("Error uploading image:", error);
         throw error;
     }
 };
+
 
