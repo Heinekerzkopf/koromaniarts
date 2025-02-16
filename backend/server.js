@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/database');
-const path = require('path');
 const multer = require('multer');
+const { v2: cloudinary } = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const Image = require('./models/Image'); 
 require('dotenv').config();
 
@@ -17,7 +18,7 @@ connectDB();
 
 // CORS settings
 app.use(cors({
-    origin: corsOrigin, // Разрешаем запросы с фронтенда
+    origin: corsOrigin,
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -25,16 +26,28 @@ app.use(cors({
 
 app.use(express.json()); // Для парсинга JSON
 
-// Маршруты
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/upload', require('./routes/upload'));
-app.use('/api/images', require('./routes/images'));
+// Настройка Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-const upload = multer({ dest: 'uploads/' });
+// Настройка хранилища Multer для Cloudinary
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'gallery_uploads', // Папка в Cloudinary
+        allowed_formats: ['jpg', 'png', 'jpeg', 'gif']
+    }
+});
 
+const upload = multer({ storage });
+
+// Маршрут загрузки изображений
 app.post('/api/upload', upload.array('images', 5), async (req, res) => {
     try {
-        const imageUrls = req.files.map(file => `/uploads/${file.filename}`);
+        const imageUrls = req.files.map(file => file.path); // Получаем ссылки на загруженные изображения
         const { title, description } = req.body;
 
         const image = new Image({
@@ -42,7 +55,7 @@ app.post('/api/upload', upload.array('images', 5), async (req, res) => {
             description, 
             imageUrls
         });
-        
+
         await image.save(); // Сохраняем в базе данных
         res.json({ message: 'Изображения успешно загружены', imageUrls });
     } catch (error) {
@@ -51,13 +64,9 @@ app.post('/api/upload', upload.array('images', 5), async (req, res) => {
     }
 });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
-    setHeaders: (res) => {
-        res.setHeader('Access-Control-Allow-Origin', corsOrigin);
-    }
-}));
-
-
+// Маршруты
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/images', require('./routes/images'));
 
 app.listen(PORT, () => {
     console.log(`✅ Сервер запущен на http://localhost:${PORT}`);

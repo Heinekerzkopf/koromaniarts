@@ -32,9 +32,8 @@ const Admin = () => {
             localStorage.setItem('token', token);
             setIsLoggedIn(true);
         } catch (error) {
-            console.log('API URL:', API_URL);
             console.error('Ошибка при логине:', error.response?.data || error.message);
-            setError('Неверный логин или пароль');
+            setError('Check login or password');
         }
     };
 
@@ -62,7 +61,7 @@ const Admin = () => {
         formData.append('title', title);
         formData.append('description', description);
         images.forEach((image, index) => {
-            formData.append(`images`, image); // На сервере жди массив `images`
+            formData.append(`images`, image); 
         });
 
         try {

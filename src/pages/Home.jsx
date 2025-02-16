@@ -3,9 +3,7 @@ import './home.css';
 import ImageCard from '../components/ImageCard';
 import Modal from '../components/Modal';
 import EditModal from '../components/EditModal'; 
-import API_URL from "../api/api"
 import { getImages } from '../api/api';
-import axios from 'axios';
 
 const Home = () => {
     const [images, setImages] = useState([]);

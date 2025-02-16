@@ -9,7 +9,7 @@ const translations = {
 };
 
 const About = () => {
-    const [language, setLanguage] = useState("en");
+    const [language, setLanguage] = useState("en")
 
     return (
         <div className="about-container">
@@ -17,7 +17,7 @@ const About = () => {
             <div className="about-content">
                 <img src={author} alt="Artist" className="about-image" />
                 <div>
-                    <p className="about-text">{translations[language]}</p>
+                    <p className='about-text'>{translations[language]}</p>
                     <div className="language-buttons">
                         <button onClick={() => setLanguage("ru")}>RU</button>
                         <button onClick={() => setLanguage("en")}>EN</button>

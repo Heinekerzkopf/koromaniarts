@@ -53,7 +53,7 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
     return (
         <div className="image-card" onClick={handleCardClick}>
             {image.imageUrls && image.imageUrls.length > 0 ? (
-                <img src={`${API_URL}${image.imageUrls[0]}`} alt={image.title} />
+                <img src={image.imageUrls[0]} alt={image.title} />
             ) : (
                 <p>No image available</p>
             )}

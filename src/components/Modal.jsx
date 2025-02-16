@@ -15,7 +15,8 @@ const Modal = ({ image, onClose }) => {
 
         <div className="modal-images">
           {image.imageUrls.map((url, index) => (
-            <img key={index} src={`${API_URL}${url}`} alt={`${image.title} ${index + 1}`} className="modal-image" />
+            <img key={index} src={url} alt={`${image.title} ${index + 1}`} className="modal-image" />
+
           ))}
         </div>
       </div>
