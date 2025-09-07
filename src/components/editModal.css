@@ -54,3 +54,26 @@
     color: #e74c3c;
     margin-top: 10px;
 }
+
+.edit-modal-btn {
+    padding: 8px;
+    text-transform: uppercase;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid black;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: black;
+    color: #fff;
+}
+
+.edit-modal-btn:hover {
+    transform: scale(1.025);
+}
+
+.save-button:hover {
+    color: green;
+}

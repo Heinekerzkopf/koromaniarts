@@ -80,7 +80,7 @@ label {
 }
 
 /* Buttons */
-button {
+.button {
     padding: 14px;
     background-color: #000;
     color: #fff;
@@ -92,14 +92,14 @@ button {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
+.button:hover {
     background-color: #fff;
     color: #000;
     border: 1px solid #000;
     transform: translateY(-3px);
 }
 
-button:active {
+.button:active {
     transform: translateY(0);
 }
 

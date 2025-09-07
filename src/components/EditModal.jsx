@@ -38,8 +38,8 @@ const EditModal = ({ image, onClose, onUpdate }) => {
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
                 {error && <p className="error">{error}</p>}
-                <button onClick={handleSave}>Save</button>
-                <button onClick={onClose}>Cancel</button>
+                <button className='edit-modal-btn save-button' onClick={handleSave}>Save</button>
+                <button className='edit-modal-btn cancel-button' onClick={onClose}>Cancel</button>
             </div>
         </div>
     );

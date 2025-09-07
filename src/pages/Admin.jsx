@@ -121,7 +121,7 @@ const Admin = () => {
                             />
                         </div>
                         {error && <div style={{ color: 'red' }}>{error}</div>}
-                        <button type="submit">Enter</button>
+                        <button className='button' type="submit">Enter</button>
                     </form>
                 </div>
             ) : (
@@ -157,11 +157,11 @@ const Admin = () => {
                                 multiple
                             />
                         </div>
-                        <button type="submit" disabled={loading}>Upload Picture</button>
+                        <button className='button' type="submit" disabled={loading}>Upload Picture</button>
                         {loading && <div>Uploading...</div>}
                         {success && <div style={{ color: 'green' }}>Picture uploaded successfully!</div>}
                         {error && <div style={{ color: 'red' }}>{error}</div>}
-                        <button className="logout-btn" onClick={handleLogout}>
+                        <button className="button logout-btn" onClick={handleLogout}>
                             Logout
                         </button>
                     </form>

@@ -1,0 +1,136 @@
+/* Карточка поста */
+.post-card {
+    position: relative;
+    padding: 24px;
+    text-align: left;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    background: #fff; /* под тёмную тему поставь #111 и цвета ниже подкорректируй */
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.post-card h3 {
+    font-size: clamp(22px, 3.2vw, 30px);
+    text-decoration: underline;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Текст поста */
+.post-card p {
+    margin: 16px 0 36px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #222; /* в тёмной теме сделай #ddd */
+    white-space: pre-wrap; /* сохраняет переносы из textarea */
+}
+
+.post-title-content {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+/* NUCLEAR RESET just for these two buttons */
+button.edit-post-btn,
+button.delete-post-btn {
+  all: unset;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Kill borders/hover/press/animations coming from globals */
+  border: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+  border-radius: 0 !important;
+}
+
+/* Also kill pseudo-state styles if something targets them globally */
+button.edit-post-btn:hover,
+button.edit-post-btn:active,
+button.edit-post-btn:focus,
+button.delete-post-btn:hover,
+button.delete-post-btn:active,
+button.delete-post-btn:focus {
+  border: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Firefox inner focus artifact */
+button.edit-post-btn::-moz-focus-inner,
+button.delete-post-btn::-moz-focus-inner { border:0; padding:0; }
+
+/* Icon sizing if you use <img> inside */
+button.edit-post-btn > img,
+button.delete-post-btn > img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+}
+
+/* Layout: 5px gap between buttons */
+.post-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  
+  /* Uniform button box (icon-only) */
+  .icon-btn {
+    /* you already nuked defaults; keep minimal */
+    width: 36px;            /* hit area */
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  /* Uniform icon size + smooth hover scale */
+  .icon-btn > img {
+    display: block;
+    width: 20px;            /* same size for both icons */
+    height: 20px;
+    pointer-events: none;   /* clicks go to the button */
+    transform-origin: center center;
+    transition: transform 150ms ease; /* re-enable only on the image */
+  }
+  
+  /* Hover: make icon ~10% bigger */
+  .icon-btn:hover > img {
+    transform: scale(1.1);
+  }
+  
+  /* (Optional) keyboard focus ring */
+  .icon-btn:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  
+.post-date {
+  font-size: 12px;
+  color: grey;
+}

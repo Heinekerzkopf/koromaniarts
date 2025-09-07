@@ -1,0 +1,35 @@
+
+.post-upload-form {
+    background-color: rgb(245, 245, 245);
+    padding: 25px 0;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.post-upload-form button {
+    width: 30%;
+    align-self: center;
+}
+
+.form-div {
+    flex-direction: column;
+}
+
+.form-div input, textarea {
+    width: 80%;
+}
+
+.post-button {
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid black;
+    transition: all 0.3s ease 0s;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.post-button:hover {
+    background-color: #000000;
+    color: #fff;
+}

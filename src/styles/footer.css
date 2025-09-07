@@ -19,39 +19,6 @@ footer p {
     opacity: 0.7;
 }
 
-footer .brand {
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
-    margin-top: 10px;
-}
-
-footer .brand:hover {
-    color: #e67e22;
-}
-
-footer .back-btn {
-    padding: 10px 20px;
-    margin-top: 15px;
-    background-color: #f39c12;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-footer .back-btn:hover {
-    background-color: #e67e22;
-    transform: translateY(-2px);
-}
-
-footer .back-btn:focus {
-    outline: none;
-}
 
 @media (max-width: 768px) {
     footer {

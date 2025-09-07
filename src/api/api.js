@@ -35,4 +35,31 @@ export const uploadImage = async (formData) => {
     }
 };
 
+export const getPosts = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/api/posts`);
+        return response;
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        throw error;
+    }
+};
 
+export const uploadPost = async (formData) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/posts`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        if (response.data) {
+            return response.data;
+        }
+
+        throw new Error('Error fetching posts');
+    } catch (error) {
+        console.error("Error uploading image:", error);
+        throw error;
+    }
+};

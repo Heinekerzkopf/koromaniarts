@@ -1,10 +1,10 @@
-/* Общий стиль для навигационной панели */
 .navbar {
     position: fixed;
     z-index: 1000;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     padding: 20px 40px;
     background-color: #fff;
@@ -12,6 +12,9 @@
     border-radius: 8px;
     color: #333;
     transition: background-color 0.3s ease;
+}
+
+.navbar__column {
 }
 
 .navbar:hover {
@@ -25,6 +28,8 @@
     color: #333;
     letter-spacing: 2px;
     transition: color 0.3s ease;
+    justify-self: start;  
+
 }
 
 .logo:hover {
@@ -45,7 +50,7 @@
     text-decoration: none;
     color: #333;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 300;
     letter-spacing: 1px;
     transition:
         color 0.3s ease,
@@ -75,6 +80,7 @@
     z-index: 2;
     font-size: 24px;
     color: #333;
+    justify-self: end;
     transition:
         color 0.3s ease,
         transform 0.3s ease;
@@ -223,4 +229,13 @@
         right: 70px;
     }
 
+}
+
+.center-me {
+    justify-self: center;  
+}
+
+@media (min-width: 768px) {
+    .bm-menu { display: none; }
+    .bm-menu-wrap { display: none; }
 }

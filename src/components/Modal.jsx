@@ -1,6 +1,5 @@
 import React from 'react';
 import './modal.css';
-import API_URL from "../api/api";
 
 const Modal = ({ image, onClose }) => {
   if (!image) return null;

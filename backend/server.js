@@ -64,9 +64,11 @@ app.post('/api/upload', upload.array('images', 5), async (req, res) => {
     }
 });
 
+
 // Маршруты
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/images', require('./routes/images'));
+app.use('/api/posts', require('./routes/posts'));
 
 app.listen(PORT, () => {
     console.log(`✅ Сервер запущен на http://localhost:${PORT}`);

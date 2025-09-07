@@ -1,15 +1,92 @@
-.edit-btn {
+.image-card {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     background-color: #fff;
-    border: 1px solid black;
-    color: #000;
-    width: 90%;
-    margin-top: 10px;
+    padding-bottom: 10px;
 }
 
-.delete-btn {
-    background-color: #000000;
-    border: 1px solid black;
-    color: #fff;
-    width: 90%;
-    margin-top: 10px;
+.image-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.image-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.image-card h3 {
+    padding: 10px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.image-card-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 5px 10px;
+    border: 1px solid rgb(179, 179, 179);
+    border-radius: 5px;
+}
+
+.icon-btn:hover > img {
+    transform: scale(1.1);
+}
+
+button.edit-btn,
+button.delete-btn {
+  all: unset;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Kill borders/hover/press/animations coming from globals */
+  border: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+  border-radius: 0 !important;
+}
+
+button.edit-btn > img,
+button.delete-btn > img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .image-card img {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .image-card img {
+        height: 150px;
+    }
+
+    .image-card h3 {
+        font-size: 16px;
+    }
 }
