@@ -13,6 +13,8 @@ const Admin = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [availability, setAvailability] = useState('AVAILABLE'); 
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -60,8 +62,9 @@ const Admin = () => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('availability', availability); 
         images.forEach((image, index) => {
-            formData.append(`images`, image); 
+            formData.append(`images`, image);
         });
 
         try {
@@ -100,7 +103,7 @@ const Admin = () => {
                 <div className="login-form">
                     <h2>Admin Panel</h2>
                     <form onSubmit={handleLogin}>
-                        <div className='form-div'>
+                        <div className='login-form-div'>
                             <label htmlFor="username">Login</label>
                             <input
                                 type="text"
@@ -110,7 +113,7 @@ const Admin = () => {
                                 required
                             />
                         </div>
-                        <div className='form-div'>
+                        <div className='login-form-div'>
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
@@ -130,7 +133,7 @@ const Admin = () => {
                     <form onSubmit={handleSubmit}>
                         <div className='form-div'>
                             <label htmlFor="title">Name</label>
-                            <input
+                            <input className='image-title'
                                 type="text"
                                 id="title"
                                 value={title}
@@ -140,7 +143,7 @@ const Admin = () => {
                         </div>
                         <div className='form-div'>
                             <label htmlFor="description">Description</label>
-                            <textarea
+                            <textarea className='image-description'
                                 id="description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
@@ -148,8 +151,21 @@ const Admin = () => {
                             />
                         </div>
                         <div className='form-div'>
+                            <label htmlFor="availability">Status</label>
+                            <select
+                                id="availability"
+                                value={availability}
+                                onChange={(e) => setAvailability(e.target.value)}
+                                required
+                            >
+                                <option value="AVAILABLE">AVAILABLE</option>
+                                <option value="NOT_AVAILABLE">NOT AVAILABLE</option>
+                            </select>
+                        </div>
+
+                        <div className='form-div'>
                             <label htmlFor="image">Picture</label>
-                            <input
+                            <input className='image-file'
                                 type="file"
                                 id="image"
                                 onChange={handleFileChange}

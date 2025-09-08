@@ -11,6 +11,21 @@
     align-self: center;
 }
 
+.form-div-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-div-post input, textarea {
+    width: 80%;
+}
+
+.form-div-post label {
+    display: block;
+    align-self: center;
+}
+
 .form-div {
     flex-direction: column;
 }

@@ -9,16 +9,7 @@
     padding: 20px;
     box-sizing: border-box;
     transition: background-color 0.3s ease;
-}
-
-.form-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.form-div input {
-    width: 215px;
+    margin-top: 20px;
 }
 
 h2 {
@@ -37,6 +28,25 @@ form {
     gap: 15px;
 }
 
+.form-div {
+    display: flex;
+}
+
+.form-div select {
+    width: 99%;
+    height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+  }
+  
+
+label {
+    align-self: start;
+}
+
 /* Form Containers */
 .login-form, .image-upload-form {
     background-color: #ffffff;
@@ -46,6 +56,10 @@ form {
     max-width: 400px;
     width: 100%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-description, .image-file, .image-title {
+    min-width: 90%;
 }
 
 .login-form:hover, .image-upload-form:hover {
@@ -121,6 +135,20 @@ label {
     font-size: 0.9rem;
     text-align: center;
     padding: 8px 0;
+}
+
+.login-form-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-form-div label {
+    display: block;
+    align-self: center;
+}
+
+.login-form-div input, textarea {
+    width: 60%;
 }
 
 /* Responsive Design */

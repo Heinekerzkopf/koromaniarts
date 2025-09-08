@@ -49,7 +49,6 @@
     margin-bottom: 10px;
 }
 
-
 .modal-edit-content .error {
     color: #e74c3c;
     margin-top: 10px;
@@ -76,4 +75,14 @@
 
 .save-button:hover {
     color: green;
+}
+
+.modal-edit-select {
+    height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+    margin-bottom: 20px;
 }

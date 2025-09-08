@@ -50,12 +50,22 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
             console.error("Error deleting image:", error);
         }
     };
-    
+
 
     return (
         <div className="image-card" onClick={handleCardClick}>
             {image.imageUrls && image.imageUrls.length > 0 ? (
-                <img src={image.imageUrls[0]} alt={image.title} />
+                <div className='image-div'>
+                    <img src={image.imageUrls[0]} alt={image.title} />
+                    <span
+                        className={`image-span ${image.availability === 'AVAILABLE'
+                                ? 'image-span-available'
+                                : 'image-span-not-available'
+                            }`}
+                    >
+                        {image.availability === 'AVAILABLE' ? 'AVAILABLE' : 'NOT AVAILABLE'}
+                    </span>
+                </div>
             ) : (
                 <p>No image available</p>
             )}

@@ -6,6 +6,7 @@ import './editModal.css'
 const EditModal = ({ image, onClose, onUpdate }) => {
     const [title, setTitle] = useState(image.title);
     const [description, setDescription] = useState(image.description);
+    const [availability, setAvailability] = useState(image.availability);
     const [error, setError] = useState('');
 
     const handleSave = async () => {
@@ -18,7 +19,8 @@ const EditModal = ({ image, onClose, onUpdate }) => {
 
             await axios.put(`${API_URL}/api/images/${image._id}`, {
                 title,
-                description
+                description,
+                availability
             }, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -37,6 +39,14 @@ const EditModal = ({ image, onClose, onUpdate }) => {
                 <h2>Editing panel</h2>
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+                <label className="modal-label">Status</label>
+                <select className='modal-edit-select'
+                    value={availability}
+                    onChange={(e) => setAvailability(e.target.value)}
+                >
+                    <option value="AVAILABLE">AVAILABLE</option>
+                    <option value="NOT_AVAILABLE">NOT AVAILABLE</option>
+                </select>
                 {error && <p className="error">{error}</p>}
                 <button className='edit-modal-btn save-button' onClick={handleSave}>Save</button>
                 <button className='edit-modal-btn cancel-button' onClick={onClose}>Cancel</button>

@@ -16,10 +16,10 @@ router.get('/', async (req, res) => {
 // Обновление изображения
 router.put('/:id', authMiddleware, async (req, res) => {
     try {
-        const { title, description } = req.body;
+        const { title, description, availability } = req.body;
         const image = await Image.findByIdAndUpdate(
             req.params.id,
-            { title, description },
+            { title, description, availability },
             { new: true }
         );
 

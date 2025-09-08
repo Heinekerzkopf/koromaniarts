@@ -4,7 +4,8 @@ const connectDB = require('./config/database');
 const multer = require('multer');
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const Image = require('./models/Image'); 
+const Image = require('./models/Image');
+const authMiddleware = require('./middleware/authMiddleware');
 require('dotenv').config();
 
 const app = express();
@@ -45,24 +46,60 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 // Маршрут загрузки изображений
-app.post('/api/upload', upload.array('images', 5), async (req, res) => {
+// app.post('/api/upload', upload.array('images', 5), async (req, res) => {
+//     try {
+//         const imageUrls = req.files.map(file => file.path); // Получаем ссылки на загруженные изображения
+//         const { title, description } = req.body;
+
+//         const image = new Image({
+//             title, 
+//             description, 
+//             imageUrls
+//         });
+
+//         await image.save(); // Сохраняем в базе данных
+//         res.json({ message: 'Изображения успешно загружены', imageUrls });
+//     } catch (error) {
+//         console.error('Ошибка при загрузке изображений:', error);
+//         res.status(500).json({ message: 'Ошибка при загрузке изображений' });
+//     }
+// });
+
+app.post('/api/upload', authMiddleware, upload.array('images', 5), async (req, res) => {
     try {
-        const imageUrls = req.files.map(file => file.path); // Получаем ссылки на загруженные изображения
-        const { title, description } = req.body;
+        const { title = '', description = '', availability } = req.body;
+
+        if (!title.trim() || !description.trim()) {
+            return res.status(400).json({ message: 'title a description jsou povinné' });
+        }
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ message: 'Nahrajte alespoň jeden obrázek' });
+        }
+
+        const allowed = ['AVAILABLE', 'NOT_AVAILABLE'];
+        const finalAvailability = allowed.includes(availability) ? availability : 'AVAILABLE';
+
+        const imageUrls = req.files.map(f => f.path.replace(/\\/g, '/'));
 
         const image = new Image({
-            title, 
-            description, 
-            imageUrls
+            title: title.trim(),
+            description: description.trim(),
+            imageUrls,
+            availability: finalAvailability
         });
 
-        await image.save(); // Сохраняем в базе данных
-        res.json({ message: 'Изображения успешно загружены', imageUrls });
+        await image.save();
+
+        return res.status(201).json({
+            message: 'Obrázky úspěšně nahrány',
+            image
+        });
     } catch (error) {
-        console.error('Ошибка при загрузке изображений:', error);
-        res.status(500).json({ message: 'Ошибка при загрузке изображений' });
+        console.error('Chyba při uploadu:', error);
+        return res.status(500).json({ message: 'Chyba při uploadu' });
     }
 });
+
 
 
 // Маршруты
