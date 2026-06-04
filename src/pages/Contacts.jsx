@@ -1,23 +1,34 @@
 import React from "react";
+import { Helmet } from 'react-helmet-async';
 import "./contacts.css";
+import contactImage from './contact-bg.webp'; 
+import instIcon from '../img/inst.png';
 
 const Contacts = () => {
   return (
     <div className="contacts-container">
+      <Helmet>
+          <title>Kontakty | Koroman Arts</title>
+          <meta name="description" content="Kontaktujte mě ohledně koupě obrazů nebo spolupráce." />
+      </Helmet>
+
       <div className="contacts-card">
-        <h2>Get in Touch</h2>
-        <p>
-          If you are interested in my paintings, feel free to contact me via email or phone.
-        </p>
+        <div className="contact-image-wrapper">
+            <img src={contactImage} alt="Atelier" />
+        </div>
+        
+        <h2>Máte zájem o mou tvorbu? Ráda zodpovím jakýkoliv dotaz</h2>
+        
         <div className="contact-info">
-          <p>
-            <strong>Phone: </strong> 
-            <a href="tel:+420776760718">+420 776 760 718</a>
-          </p>
-          <p>
-            <strong>Email: </strong> 
-            <a href="mailto:koromani19@gmail.com">koromani19@gmail.com</a>
-          </p>
+          <a href="tel:+420776760718" className="contact-link">
+            +420 776 760 718
+          </a>
+          <a href="mailto:koromani19@gmail.com" className="contact-link">
+            koromani19@gmail.com
+          </a>
+          <a href="https://www.instagram.com/koromanilona" target="_blank" rel="noopener noreferrer" className="contact-link inst-link">
+            <img src={instIcon} alt="Instagram" className="inst-icon" />instagram
+          </a>
         </div>
       </div>
     </div>

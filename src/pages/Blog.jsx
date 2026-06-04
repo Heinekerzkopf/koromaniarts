@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet-async';
 import './blog.css'
 import NewPost from '../components/NewPost'
 import PostCard from '../components/PostCard';
@@ -49,6 +50,10 @@ const Blog = () => {
 
     return (
         <div className="blog-container">
+            <Helmet>
+                <title>Blog a Novinky | Koroman Arts</title>
+                <meta name="description" content="Přečtěte si novinky a informace o mých výstavách." />
+            </Helmet>
             <h2>Here you can find relative informations about me or my exhibitions and other stuff</h2>
             <div className="blog-new-post">
                 <NewPost onCreated={fetchPosts} />

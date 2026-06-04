@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/database');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 const multer = require('multer');
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -25,7 +27,9 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.use(express.json()); // Для парсинга JSON
+app.use(express.json()); // json parsing
+app.use(helmet()); // (Nastaví bezpečné HTTP hlavičky)
+app.use(mongoSanitize()); // Vyčistí data od NoSQL virů
 
 // Настройка Cloudinary
 cloudinary.config({
@@ -43,7 +47,7 @@ const storage = new CloudinaryStorage({
     }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
 // Маршрут загрузки изображений
 // app.post('/api/upload', upload.array('images', 5), async (req, res) => {
@@ -100,9 +104,16 @@ app.post('/api/upload', authMiddleware, upload.array('images', 5), async (req, r
     }
 });
 
+const rateLimit = require('express-rate-limit');
 
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minut
+    max: 10, // max 10 pokusů za 15 minut
+    message: { message: 'Too many login attempts, please try again later.' }
+});
 
-// Маршруты
+// routes
+app.use('/api/auth/login', loginLimiter);
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/images', require('./routes/images'));
 app.use('/api/posts', require('./routes/posts'));

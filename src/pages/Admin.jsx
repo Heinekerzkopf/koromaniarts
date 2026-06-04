@@ -34,7 +34,7 @@ const Admin = () => {
             localStorage.setItem('token', token);
             setIsLoggedIn(true);
         } catch (error) {
-            console.error('Ошибка при логине:', error.response?.data || error.message);
+            console.error('Login error:', error.response?.data || error.message);
             setError('Check login or password');
         }
     };
@@ -55,7 +55,7 @@ const Admin = () => {
         e.preventDefault();
 
         if (images.length === 0) {
-            setError('Выберите хотя бы одно изображение.');
+            setError('Choose at least one picture');
             return;
         }
 
@@ -70,13 +70,12 @@ const Admin = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                setError('Пожалуйста, войдите в систему');
+                setError('Please log in');
                 return;
             }
 
-            setLoading(true); // Начинаем загрузку
+            setLoading(true); 
 
-            // Отправляем данные на сервер
             const response = await axios.post(`${API_URL}/api/upload`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -84,16 +83,16 @@ const Admin = () => {
                 }
             });
 
-            setLoading(false); // Завершаем загрузку
-            setSuccess(true);  // Показываем сообщение об успехе
-            alert('Изображение загружено успешно!');
+            setLoading(false); 
+            setSuccess(true);  
+            alert('Successfully loaded! 😍');
             setTitle('');
             setDescription('');
             setImages([]);
         } catch (error) {
-            setLoading(false); // Завершаем загрузку
-            console.error('Ошибка при загрузке изображения:', error);
-            setError('Что-то пошло не так... Попробуйте снова.');
+            setLoading(false); 
+            console.error('Oops... something wrong:', error);
+            setError('Hmmm... try again, it didnt end well 😅');
         }
     };
 

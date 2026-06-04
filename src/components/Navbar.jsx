@@ -22,7 +22,7 @@ const Navbar = () => {
         <>
             <li>
                 <NavLink to="/" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    Home
+                    Gallery
                 </NavLink>
             </li>
             <li>

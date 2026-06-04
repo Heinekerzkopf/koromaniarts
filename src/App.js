@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home'
@@ -10,19 +11,21 @@ import Blog from "./pages/Blog";
 
 function App() {
     return (
-        <div className="App">
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/contacts" element={<Contacts />} />
-                    <Route path="/admin" element={<Admin />} />
-                </Routes>
-                <Footer />
-            </Router>
-        </div>
+        <HelmetProvider>
+            <div className="App">
+                <Router>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/contacts" element={<Contacts />} />
+                        <Route path="/admin" element={<Admin />} />
+                    </Routes>
+                    <Footer />
+                </Router>
+            </div>
+        </HelmetProvider>
     );
 }
 

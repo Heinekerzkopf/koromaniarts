@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import './home.css';
 import ImageCard from '../components/ImageCard';
 import Modal from '../components/Modal';
@@ -21,7 +22,7 @@ const Home = () => {
             const response = await getImages();
             setImages(response.data);
         } catch (error) {
-            console.error('Ошибка загрузки изображений:', error);
+            console.error('error during pictures load:', error);
         } finally {
             setLoading(false);
         }
@@ -41,13 +42,16 @@ const Home = () => {
         setSelectedImage(null);
     };
 
-    // Обработка удаления изображения
     const handleDelete = async (id) => {
         setImages(images.filter(image => image._id !== id));  
     };
 
     return (
         <div className="home">
+            <Helmet>
+                <title>Galerie | Koroman Arts</title>
+                <meta name="description" content="Prohlédněte si mou nejnovější tvorbu a obrazy." />
+            </Helmet>
             <h1>Gallery</h1>
 
             {/* Индикатор загрузки */}

@@ -6,6 +6,11 @@ import editIcon from '../img/8666681_edit_icon.svg'
 import deleteIcon from '../img/9104213_close_cross_remove_delete_icon.svg'
 
 const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
+    const getOptimizedUrl = (url) => {
+        if (!url || !url.includes('/upload/')) return url;
+        return url.replace('/upload/', '/upload/q_auto,f_auto/');
+    };
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -56,7 +61,7 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
         <div className="image-card" onClick={handleCardClick}>
             {image.imageUrls && image.imageUrls.length > 0 ? (
                 <div className='image-div'>
-                    <img src={image.imageUrls[0]} alt={image.title} />
+                    <img src={getOptimizedUrl(image.imageUrls[0])} alt={image.title} />
                     <span
                         className={`image-span ${image.availability === 'AVAILABLE'
                                 ? 'image-span-available'
