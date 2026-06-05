@@ -31,47 +31,28 @@ app.use(express.json()); // json parsing
 app.use(helmet()); // (Nastaví bezpečné HTTP hlavičky)
 app.use(mongoSanitize()); // Vyčistí data od NoSQL virů
 
-// Настройка Cloudinary
+// Cloudinary settings
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Настройка хранилища Multer для Cloudinary
+// multer & cloudinary
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: 'gallery_uploads', // Папка в Cloudinary
+        folder: 'gallery_uploads', // package in Cloudinary
         allowed_formats: ['jpg', 'png', 'jpeg', 'gif']
     }
 });
 
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
-// Маршрут загрузки изображений
-// app.post('/api/upload', upload.array('images', 5), async (req, res) => {
-//     try {
-//         const imageUrls = req.files.map(file => file.path); // Получаем ссылки на загруженные изображения
-//         const { title, description } = req.body;
-
-//         const image = new Image({
-//             title, 
-//             description, 
-//             imageUrls
-//         });
-
-//         await image.save(); // Сохраняем в базе данных
-//         res.json({ message: 'Изображения успешно загружены', imageUrls });
-//     } catch (error) {
-//         console.error('Ошибка при загрузке изображений:', error);
-//         res.status(500).json({ message: 'Ошибка при загрузке изображений' });
-//     }
-// });
 
 app.post('/api/upload', authMiddleware, upload.array('images', 5), async (req, res) => {
     try {
-        const { title = '', description = '', availability } = req.body;
+        const { title = '', description = '', availability, year } = req.body;
 
         if (!title.trim() || !description.trim()) {
             return res.status(400).json({ message: 'title a description jsou povinné' });
@@ -83,13 +64,16 @@ app.post('/api/upload', authMiddleware, upload.array('images', 5), async (req, r
         const allowed = ['AVAILABLE', 'NOT_AVAILABLE'];
         const finalAvailability = allowed.includes(availability) ? availability : 'AVAILABLE';
 
+        const finalYear = year ? parseInt(year, 10) : 2024;
+
         const imageUrls = req.files.map(f => f.path.replace(/\\/g, '/'));
 
         const image = new Image({
             title: title.trim(),
             description: description.trim(),
             imageUrls,
-            availability: finalAvailability
+            availability: finalAvailability,
+            year: finalYear
         });
 
         await image.save();

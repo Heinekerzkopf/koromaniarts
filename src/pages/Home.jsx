@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import './home.css';
 import ImageCard from '../components/ImageCard';
@@ -11,7 +11,10 @@ const Home = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [filter, setFilter] = useState('ALL');
+    const [yearFilter, setYearFilter] = useState('ALL');
+
+    // NOVÉ: Vytvoření reference na sekci s portfoliem
+    const portfolioRef = useRef(null);
 
     useEffect(() => {
         fetchImages();
@@ -48,57 +51,92 @@ const Home = () => {
     };
 
     const filteredImages = images.filter((image) => {
-        if (filter === 'ALL') {
+        if (yearFilter === 'ALL') {
             return true;
         }
-        return image.availability === filter;
+        return image.year === parseInt(yearFilter, 10);
     });
 
+    const groupedImages = filteredImages.reduce((acc, image) => {
+        const y = image.year || 2024; 
+        if (!acc[y]) {
+            acc[y] = [];
+        }
+        acc[y].push(image);
+        return acc;
+    }, {});
+
+    const sortedYears = Object.keys(groupedImages).sort((a, b) => b - a);
+
+    // NOVÉ: Funkce pro plynulé sjetí dolů
+    const scrollToPortfolio = () => {
+        portfolioRef.current.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
-        <div className="home">
+        <div className="home-wrapper">
             <Helmet>
-                <title>Galerie | Koroman Arts</title>
+                <title>Portfolio | Koroman Arts</title>
                 <meta name="description" content="Prohlédněte si mou nejnovější tvorbu a obrazy." />
             </Helmet>
-            <h1>Galerie</h1>
 
-            <div className="filter-container">
-                <button 
-                    className={filter === 'ALL' ? 'active-filter' : ''} 
-                    onClick={() => setFilter('ALL')}
-                >
-                    Všechny
-                </button>
-                <button 
-                    className={filter === 'AVAILABLE' ? 'active-filter' : ''} 
-                    onClick={() => setFilter('AVAILABLE')}
-                >
-                    Dostupné
-                </button>
-                <button 
-                    className={filter === 'NOT_AVAILABLE' ? 'active-filter' : ''} 
-                    onClick={() => setFilter('NOT_AVAILABLE')}
-                >
-                    Nedostupné
-                </button>
+            <div 
+                className="hero-section" 
+                // URL 
+                style={{ backgroundImage: `url('https://cdn.forbes.cz/uploads/2025/07/detinsky-20250602-116a5089-scaled.webp?r=eyJ3IjoxNTAwLCJxIjo5MCwicyI6ImpwZyJ9')` }}
+            >
+                <div className="hero-overlay"></div>
+                <div className="hero-content">
+                    <h1 className="hero-title">Ilona Koroman</h1>
+                    <button className="hero-button" onClick={scrollToPortfolio}>
+                        Moje portfolio
+                    </button>
+                </div>
             </div>
 
-            {loading && (
-                <div className="loading-indicator">
-                    <div className="circle"></div>
+            <div className="portfolio-section" ref={portfolioRef}>
+                
+                <div className="year-filter-container">
+                    <select 
+                        id="year-select"
+                        value={yearFilter} 
+                        onChange={(e) => setYearFilter(e.target.value)}
+                    >
+                        <option value="ALL">Všechny roky</option>
+                        {Array.from({ length: 12 }, (_, i) => 2035 - i).map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
                 </div>
-            )}
 
-            <div className="gallery">
-                {filteredImages.map((image) => (
-                    <ImageCard
-                        key={image._id}
-                        image={image}
-                        onClick={openModal}
-                        onEditClick={openEditModal}
-                        onDelete={handleDelete}
-                    />
-                ))}
+                {loading && (
+                    <div className="loading-indicator">
+                        <div className="circle"></div>
+                    </div>
+                )}
+
+                <div className="gallery-wrapper">
+                    {sortedYears.length > 0 ? (
+                        sortedYears.map((year) => (
+                            <div key={year} className="year-section">
+                                <h2 className="year-title">{year}</h2>
+                                <div className="gallery">
+                                    {groupedImages[year].map((image) => (
+                                        <ImageCard
+                                            key={image._id}
+                                            image={image}
+                                            onClick={openModal}
+                                            onEditClick={openEditModal}
+                                            onDelete={handleDelete}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        !loading && <p>Zatím zde nejsou žádná díla.</p>
+                    )}
+                </div>
             </div>
 
             {selectedImage && !isEditing && (

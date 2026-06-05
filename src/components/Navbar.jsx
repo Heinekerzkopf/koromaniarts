@@ -22,22 +22,22 @@ const Navbar = () => {
         <>
             <li>
                 <NavLink to="/" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    Galerie
+                    Portfolio
                 </NavLink>
             </li>
             <li>
                 <NavLink to="/about" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    O mně
+                    About me
                 </NavLink>
             </li>
             <li>
                 <NavLink to="/blog" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    Blog
+                    Latest
                 </NavLink>
             </li>
             <li>
                 <NavLink to="/contacts" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    Kontakty
+                    Contacts
                 </NavLink>
             </li>
         </>

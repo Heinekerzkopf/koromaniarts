@@ -7,7 +7,8 @@
         transform 0.3s ease,
         box-shadow 0.3s ease;
     background-color: #fff;
-    padding-bottom: 10px;
+    padding-bottom: 20px; 
+    position: relative;
 }
 
 .image-card:hover {
@@ -22,16 +23,21 @@
 }
 
 .image-card h3 {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
     margin-bottom: 5px;
     color: #333;
+}
+
+.image-card p {
+    padding: 0 10px;
 }
 
 .image-card-button {
     display: inline-flex;
     align-items: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
     background-color: #fff;
     padding: 5px 10px;
     border: 1px solid rgb(179, 179, 179);
@@ -54,8 +60,6 @@ button.delete-btn {
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  /* Kill borders/hover/press/animations coming from globals */
   border: 0 !important;
   background: none !important;
   box-shadow: none !important;
@@ -74,6 +78,16 @@ button.delete-btn > img {
   pointer-events: none;
 }
 
+.sold-text {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 8px; 
+    color: #888; 
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
 @media (max-width: 768px) {
     .image-card img {
         height: 350px;
@@ -81,7 +95,6 @@ button.delete-btn > img {
 }
 
 @media (max-width: 480px) {
-
     .image-card img {
         height: 300px;
     }
@@ -93,23 +106,4 @@ button.delete-btn > img {
 
 .image-div {
     position: relative;
-}
-
-.image-span {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 12px;
-    padding: 2px 5px;
-    border-radius: 10px;
-    color: #fff;
-    opacity: 0.9;
-}
-
-.image-span-available {
-    background-color: rgb(0, 0, 0);
-}
-
-.image-span-not-available {
-    background-color: rgb(170, 170, 170);
 }

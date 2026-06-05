@@ -47,7 +47,7 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
 
             if (response.status === 200) {
                 console.log("Image deleted successfully");
-                onDelete(image._id);  // Обновление состояния на главной
+                onDelete(image._id); 
             } else {
                 console.error("Failed to delete image:", response.status);
             }
@@ -62,18 +62,11 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
             {image.imageUrls && image.imageUrls.length > 0 ? (
                 <div className='image-div'>
                     <img src={getOptimizedUrl(image.imageUrls[0])} alt={image.title} />
-                    <span
-                        className={`image-span ${image.availability === 'AVAILABLE'
-                                ? 'image-span-available'
-                                : 'image-span-not-available'
-                            }`}
-                    >
-                        {image.availability === 'AVAILABLE' ? 'AVAILABLE' : 'NOT AVAILABLE'}
-                    </span>
                 </div>
             ) : (
                 <p>No image available</p>
             )}
+            
             <h3>{image.title}</h3>
             <p>{image.description}</p>
 
@@ -82,6 +75,10 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
                     <button className="icon-btn edit-btn" onClick={handleEditClick}><img src={editIcon} alt="" /></button>
                     <button className="icon-btn delete-btn" onClick={handleDeleteClick}><img src={deleteIcon} alt="" /></button>
                 </div>
+            )}
+
+            {image.availability === 'NOT_AVAILABLE' && (
+                <span className="sold-text">SOLD</span>
             )}
         </div>
     );

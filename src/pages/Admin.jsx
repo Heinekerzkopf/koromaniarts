@@ -14,7 +14,9 @@ const Admin = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [availability, setAvailability] = useState('AVAILABLE'); 
-
+    
+    // NOVÉ: Stav pro rok (jako výchozí dáme aktuální rok, ať to ségra nemusí pořád překlikávat)
+    const [year, setYear] = useState(new Date().getFullYear());
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -63,7 +65,10 @@ const Admin = () => {
         formData.append('title', title);
         formData.append('description', description);
         formData.append('availability', availability); 
-        images.forEach((image, index) => {
+        // NOVÉ: Přidáme rok do dat pro odeslání na backend
+        formData.append('year', year);
+
+        images.forEach((image) => {
             formData.append(`images`, image);
         });
 
@@ -89,6 +94,9 @@ const Admin = () => {
             setTitle('');
             setDescription('');
             setImages([]);
+            // Volitelně můžeme resetovat i rok a stav:
+            setAvailability('AVAILABLE');
+            setYear(new Date().getFullYear());
         } catch (error) {
             setLoading(false); 
             console.error('Oops... something wrong:', error);
@@ -149,6 +157,23 @@ const Admin = () => {
                                 required
                             />
                         </div>
+                        
+                        {/* NOVÉ: Dropdown pro výběr roku */}
+                        <div className='form-div'>
+                            <label htmlFor="year">Year</label>
+                            <select
+                                id="year"
+                                value={year}
+                                onChange={(e) => setYear(e.target.value)}
+                                required
+                            >
+                                {/* Vygeneruje roky 2024 až 2035 */}
+                                {Array.from({ length: 12 }, (_, i) => 2024 + i).map(y => (
+                                    <option key={y} value={y}>{y}</option>
+                                ))}
+                            </select>
+                        </div>
+
                         <div className='form-div'>
                             <label htmlFor="availability">Status</label>
                             <select
