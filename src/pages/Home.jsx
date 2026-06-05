@@ -11,6 +11,7 @@ const Home = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [filter, setFilter] = useState('ALL');
 
     useEffect(() => {
         fetchImages();
@@ -46,15 +47,42 @@ const Home = () => {
         setImages(images.filter(image => image._id !== id));  
     };
 
+    const filteredImages = images.filter((image) => {
+        if (filter === 'ALL') {
+            return true;
+        }
+        return image.availability === filter;
+    });
+
     return (
         <div className="home">
             <Helmet>
                 <title>Galerie | Koroman Arts</title>
                 <meta name="description" content="Prohlédněte si mou nejnovější tvorbu a obrazy." />
             </Helmet>
-            <h1>Gallery</h1>
+            <h1>Galerie</h1>
 
-            {/* Индикатор загрузки */}
+            <div className="filter-container">
+                <button 
+                    className={filter === 'ALL' ? 'active-filter' : ''} 
+                    onClick={() => setFilter('ALL')}
+                >
+                    Všechny
+                </button>
+                <button 
+                    className={filter === 'AVAILABLE' ? 'active-filter' : ''} 
+                    onClick={() => setFilter('AVAILABLE')}
+                >
+                    Dostupné
+                </button>
+                <button 
+                    className={filter === 'NOT_AVAILABLE' ? 'active-filter' : ''} 
+                    onClick={() => setFilter('NOT_AVAILABLE')}
+                >
+                    Nedostupné
+                </button>
+            </div>
+
             {loading && (
                 <div className="loading-indicator">
                     <div className="circle"></div>
@@ -62,7 +90,7 @@ const Home = () => {
             )}
 
             <div className="gallery">
-                {images.map((image) => (
+                {filteredImages.map((image) => (
                     <ImageCard
                         key={image._id}
                         image={image}
@@ -73,7 +101,6 @@ const Home = () => {
                 ))}
             </div>
 
-            {/* Модальные окна для просмотра и редактирования */}
             {selectedImage && !isEditing && (
                 <Modal image={selectedImage} onClose={closeModal} />
             )}

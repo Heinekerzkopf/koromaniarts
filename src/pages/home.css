@@ -6,9 +6,46 @@
 
 h1 {
   font-size: 36px;
-  margin-bottom: 40px;
+  margin-bottom: 15px; 
   color: #333;
 }
+
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap; 
+}
+
+
+.filter-container button {
+  padding: 6px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #333;
+  border-radius: 30px; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 300;
+}
+
+
+.filter-container button:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px); 
+}
+
+
+.filter-container button.active-filter {
+  background-color: #333;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+/* -------------------------------------- */
 
 .gallery {
   display: grid;
@@ -18,8 +55,6 @@ h1 {
   margin: 0 auto;
   padding: 0 10px;
 }
-
-
 
 @media (max-width: 768px) {
   .gallery {
@@ -35,10 +70,12 @@ h1 {
   h1 {
     font-size: 28px;
   }
-
+  
+  .filter-container button {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
 }
-
-/* home.css */
 
 .loading-indicator {
   position: absolute;

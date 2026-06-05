@@ -18,7 +18,7 @@ const About = () => {
                 <title>O mně | Koroman Arts</title>
                 <meta name="description" content="Něco málo o mně a mé umělecké tvorbě. Olejomalba a originální obrazy z Prahy." />
             </Helmet>
-            <h2>About Me</h2>
+            <h2>O mně</h2>
             <div className="about-content">
                 <img src={author} alt="Artist" className="about-image" />
                 <div>

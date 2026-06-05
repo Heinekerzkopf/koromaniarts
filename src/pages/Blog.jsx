@@ -54,7 +54,7 @@ const Blog = () => {
                 <title>Blog a Novinky | Koroman Arts</title>
                 <meta name="description" content="Přečtěte si novinky a informace o mých výstavách." />
             </Helmet>
-            <h2>Here you can find relative informations about me or my exhibitions and other stuff</h2>
+            <h2>Zde naleznete informace o mých výstavách a dalších aktivitách</h2>
             <div className="blog-new-post">
                 <NewPost onCreated={fetchPosts} />
             </div>
@@ -76,7 +76,6 @@ const Blog = () => {
                     ))}
                 </div>
 
-                {/* Модальные окна для просмотра и редактирования */}
                 {selectedPost && !isEditing && (
                     <Modal image={selectedPost} onClose={closeModal} />
                 )}
