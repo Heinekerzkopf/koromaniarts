@@ -27,7 +27,7 @@ const Navbar = () => {
             </li>
             <li>
                 <NavLink to="/about" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    About me
+                    About
                 </NavLink>
             </li>
             <li>
@@ -37,7 +37,7 @@ const Navbar = () => {
             </li>
             <li>
                 <NavLink to="/contacts" onClick={closeMenu} className={({ isActive }) => (isActive ? "active" : "")}>
-                    Contacts
+                    Contact
                 </NavLink>
             </li>
         </>

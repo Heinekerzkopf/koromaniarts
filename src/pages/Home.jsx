@@ -12,8 +12,6 @@ const Home = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [yearFilter, setYearFilter] = useState('ALL');
-
-    // NOVÉ: Vytvoření reference na sekci s portfoliem
     const portfolioRef = useRef(null);
 
     useEffect(() => {
@@ -83,7 +81,7 @@ const Home = () => {
             <div 
                 className="hero-section" 
                 // URL 
-                style={{ backgroundImage: `url('https://cdn.forbes.cz/uploads/2025/07/detinsky-20250602-116a5089-scaled.webp?r=eyJ3IjoxNTAwLCJxIjo5MCwicyI6ImpwZyJ9')` }}
+                style={{ backgroundImage: `url('https://res.cloudinary.com/dvmfxcsjk/image/upload/q_auto,f_auto/v1780868713/_DSC6058_pthu5m.jpg')` }}
             >
                 <div className="hero-overlay"></div>
                 <div className="hero-content">

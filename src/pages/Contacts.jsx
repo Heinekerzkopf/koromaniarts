@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from 'react-helmet-async';
 import "./contacts.css";
-import contactImage from './contact-bg.webp'; 
+import contactImage from './contact-bp.JPG'; 
 import instIcon from '../img/inst.png';
 
 const Contacts = () => {
@@ -16,8 +16,9 @@ const Contacts = () => {
         <div className="contact-image-wrapper">
             <img src={contactImage} alt="Atelier" />
         </div>
+
+        <h2>Contacts:</h2>
         
-        <h2>Máte zájem o mou tvorbu? Ráda zodpovím jakýkoliv dotaz</h2>
         
         <div className="contact-info">
           <a href="tel:+420776760718" className="contact-link">

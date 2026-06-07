@@ -44,6 +44,7 @@
 }
 
 .contact-link {
+  font-weight: 300;
   display: block;
   font-size: 18px;
   color: #333;
@@ -53,6 +54,7 @@
 }
 
 .inst-link {
+  font-weight: 300;
   display: flex;
   align-items: center;
   justify-content: center;

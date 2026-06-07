@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import './about.css';
-import author from './author.jpg'
+import author from './author.jpg';
 
 const translations = {
-    en: "Welcome to my artistic world. My name is Ilona Koroman and I am a painter based in Prague. Creating art is more than just a passion for me – it is a language through which I communicate my emotions, thoughts, and perception of the world around me. Each of my paintings is an original with its own story, into which I put a piece of myself. I focus primarily on oil painting, striving to create works that not only decorate a space but, more importantly, resonate with those who look at them.",
-    ua: "Ласкаво прошу до мого мистецького світу. Мене звати Ілона Короман, я художниця, яка працює в Празі. Творчість для мене — це більше, ніж просто захоплення. Це мова, якою я передаю свої емоції, думки та сприйняття навколишнього світу. Кожна з моїх картин — це оригінал із власною історією, в яку я вкладаю частинку себе. Я зосереджуюся переважно на олійному живописі, прагнучи створювати роботи, які не лише прикрашають простір, але й резонують з тими, хто на них дивиться.",
-    cz: "Vítejte v mém uměleckém světě. Jmenuji se Ilona Koroman a jsem malířka působící v Praze. Tvorba je pro mě víc než jen vášeň – je to jazyk, kterým sděluji své emoce, myšlenky a vnímání okolního světa. Každý z mých obrazů je originál s vlastním příběhem, do kterého vkládám kus sebe. Zaměřuji se především na olejomalbu, přičemž se snažím, aby má díla nejen zdobila prostor, ale hlavně rezonovala s těmi, kteří se na ně dívají."
+    en: [
+        "Ilona Koroman is a painter living and working in Prague. She has Hungarian-Ukrainian roots and graduated from the Academy of Fine Arts in Prague, where she completed her studies in 2025.",
+        "In her work, she focuses on the poetics of everyday life, intimate spaces, and quiet moments of ordinary life, which she captures with a sensitive relationship to architecture, light, and atmosphere. Through figurative compositions, urban landscapes, and interiors, she explores the relationship between private and public space, presence and absence, or closeness and alienation.",
+        "She finds inspiration in her immediate surroundings, personal experiences, memories, and the observation of everyday situations. Her paintings often capture seemingly inconspicuous moments in which reality intertwines with inner experience. Characteristic for her is the work with atmosphere, light, and the psychology of space, where ordinary situations transform into open images inviting personal interpretation."
+    ],
+    cz: [
+        "Ilona Koroman je malířka žijící a pracující v Praze. Má maďarsko-ukrajinské kořeny a absolvovala Akademii výtvarných umění v Praze, kde dokončila studium v roce 2025.",
+        "Ve své tvorbě se soustředí na poetiku každodennosti, intimní prostory a tiché momenty běžného života, které zachycuje s citlivým vztahem k architektuře, světlu a atmosféře. Prostřednictvím figurálních kompozic, městských krajin a interiérů zkoumá vztah mezi soukromým a veřejným prostorem, přítomností a nepřítomností či blízkostí a odcizením.",
+        "Inspiraci nachází v bezprostředním okolí, osobních zkušenostech, vzpomínkách a pozorování každodenních situací. Její obrazy často zachycují zdánlivě nenápadné okamžiky, v nichž se prolíná realita s vnitřním prožíváním. Charakteristická je pro ni práce s atmosférou, světlem a psychologií prostoru, kde se obyčejné situace proměňují v otevřené obrazy vybízející k vlastní interpretaci."
+    ]
 };
 
 const About = () => {
@@ -18,13 +25,17 @@ const About = () => {
                 <title>O mně | Koroman Arts</title>
                 <meta name="description" content="Něco málo o mně a mé umělecké tvorbě. Olejomalba a originální obrazy z Prahy." />
             </Helmet>
-            <h2>O mně</h2>
+            <h2>{language === 'cz' ? 'O mně' : 'About me'}</h2>
             <div className="about-content">
                 <img src={author} alt="Artist" className="about-image" />
                 <div>
-                    <p className='about-text'>{translations[language]}</p>
+                    <div className="about-text-container">
+                        {translations[language].map((paragraph, index) => (
+                            <p key={index} className='about-text'>{paragraph}</p>
+                        ))}
+                    </div>
+
                     <div className="language-buttons">
-                        <button onClick={() => setLanguage("ua")}>UA</button>
                         <button onClick={() => setLanguage("en")}>EN</button>
                         <button onClick={() => setLanguage("cz")}>CZ</button>
                     </div>
