@@ -17,9 +17,9 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
+}
 
-  /* --- ROZDĚLOVAČ MEZI NOVINKAMI A VÝSTAVAMI --- */
+/* --- ROZDĚLOVAČ MEZI NOVINKAMI A VÝSTAVAMI --- */
 .section-divider {
     border: 0;
     height: 1px;
@@ -56,7 +56,9 @@ h2 {
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     border: 1px solid #f5f5f5;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .exhibition-card:hover {
@@ -77,7 +79,7 @@ h2 {
 }
 
 .card-content {
-    flex: 1; 
+    flex: 1;
     padding: 30px 40px;
     display: flex;
     flex-direction: column;
@@ -140,6 +142,8 @@ h2 {
     max-width: 900px;
     margin: 0 auto;
     margin-top: 100px;
+    padding: 0 25px;
+    box-sizing: border-box;
 }
 
 .back-button {
@@ -206,13 +210,13 @@ h2 {
     height: 300px;
     object-fit: cover;
     border-radius: 6px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* --- RESPONZIVITA (Mobily a tablety) --- */
 @media (max-width: 768px) {
     .exhibition-card {
-        flex-direction: column; 
+        flex-direction: column;
     }
 
     .card-image-wrapper {
@@ -227,5 +231,18 @@ h2 {
 
     .detail-title {
         font-size: 32px;
+    }
+
+    .detail-meta {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .meta-separator {
+        display: none;
+    }
+
+    .detail-gallery {
+        grid-template-columns: 1fr;
     }
 }
