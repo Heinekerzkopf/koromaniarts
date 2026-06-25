@@ -2,81 +2,90 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
-  padding: 100px 20px 0px 20px;
+  min-height: 85vh;
+  padding: 90px 20px 60px 20px;
   background-color: #fafafa;
 }
 
 .contacts-card {
   background: white;
   padding: 0; 
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   text-align: center;
-  max-width: 900px;
+  width: 100%;
+  max-width: 550px; 
   overflow: hidden;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .contact-image-wrapper img {
   width: 100%;
-  height: 400px;
+  height: 320px;
   object-fit: cover;
+  display: block;
 }
 
 .contacts-card h2 {
-  font-size: 16px;
-  color: #222;
-  margin: 10px 0;
-}
-
-.contacts-card p {
-  color: #777;
-  font-size: 16px;
+  font-size: 22px;
+  font-weight: 100;
+  color: #111;
+  margin-top: 20px;
   margin-bottom: 10px;
-  padding: 0 20px;
+  letter-spacing: 4px;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border-top: 1px solid #eee;
+  gap: 28px; 
+  padding: 20px;
 }
+
+
+.contact-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px; 
+}
+
+
+.contact-label {
+  font-size: 11px;
+  color: #999;
+  font-weight: 100;
+  letter-spacing: 3px;
+}
+
 
 .contact-link {
-  font-weight: 300;
-  display: block;
+  font-weight: 100 !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   font-size: 18px;
-  color: #333;
+  color: #111;
   text-decoration: none;
-  padding: 10px;
-  transition: background 0.3s;
-}
-
-.inst-link {
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 18px; 
-  color: #333;
-  text-decoration: none;
-  padding: 10px;
-  transition: background 0.3s;
-}
-
-.inst-link:hover {
-  background: #f9f9f9;
-  border-radius: 8px;
-}
-
-.inst-icon {
-  width: 24px; 
-  height: 24px;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .contact-link:hover {
-  background: #f9f9f9;
-  border-radius: 8px;
+  color: #f39c12;
+  transform: translateY(-1px);
+}
+
+
+.inst-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.inst-icon {
+  width: 18px; 
+  height: 18px;
+  opacity: 0.8; 
 }

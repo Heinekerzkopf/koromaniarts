@@ -10,7 +10,7 @@
 
 h2 {
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 100;
 }
 
 .posts {
@@ -30,7 +30,9 @@ h2 {
 
 .section-title {
     font-size: 32px;
-    font-weight: 300;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: #111;
     margin-bottom: 30px;
     text-align: left;
@@ -41,6 +43,11 @@ h2 {
 /* --- SEZNAM VÝSTAV (KARTY) --- */
 .exhibitions-section {
     margin-bottom: 60px;
+}
+
+.no-posts-message {
+    font-weight: 100;
+    letter-spacing: 2px;
 }
 
 .exhibitions-list {
@@ -97,7 +104,9 @@ h2 {
 
 .card-title {
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: #111;
     margin-bottom: 5px;
     margin-top: 0;
@@ -105,7 +114,9 @@ h2 {
 
 .card-location {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: #444;
     margin-bottom: 15px;
 }
@@ -150,7 +161,7 @@ h2 {
     background: none;
     border: none;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 300;
     color: #555;
     cursor: pointer;
     padding: 0;
@@ -168,7 +179,9 @@ h2 {
 
 .detail-title {
     font-size: 42px;
-    font-weight: 400;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     color: #111;
     margin-bottom: 10px;
     text-align: left;
@@ -185,7 +198,9 @@ h2 {
 }
 
 .meta-location {
-    font-weight: 600;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .detail-description {

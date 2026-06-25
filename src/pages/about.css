@@ -5,6 +5,12 @@
     max-width: 1100px;
 }
 
+.about-container h2 {
+    text-transform: uppercase;
+    font-weight: 100;
+    letter-spacing: 2px;
+}
+
 .about-content {
     display: flex;
     align-items: flex-start;
