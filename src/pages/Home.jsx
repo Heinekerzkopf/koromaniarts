@@ -119,7 +119,7 @@ const Home = () => {
                             <div key={year} className="year-section">
                                 <h2 className="year-title">{year}</h2>
                                 <div className="gallery">
-                                    {groupedImages[year].map((image) => (
+                                    {[...groupedImages[year]].reverse().map((image) => (
                                         <ImageCard
                                             key={image._id}
                                             image={image}
