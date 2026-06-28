@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import API_URL from "../api/api";
 import './newPost.css';
@@ -28,15 +28,14 @@ const NewPost = ({ onCreated }) => {
         }
 
         if (!token) {
-            setError('Please enter the system');
+            setError('Please log in');
             return;
         }
 
         try {
             setLoading(true);
 
-            // ШЛЁМ JSON (axios сам поставит Content-Type: application/json)
-            const res = await axios.post(
+            await axios.post(
                 `${API_URL}/api/posts`,
                 { title: t, description: d },
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -51,11 +50,7 @@ const NewPost = ({ onCreated }) => {
             setTimeout(() => setSuccess(false), 2500);
         } catch (err) {
             setLoading(false);
-            // попробуем показать текст с сервера, если есть
-            const msg =
-                err?.response?.data?.message ||
-                err?.message ||
-                'Hm... looks like some error. Try again, please';
+            const msg = err?.response?.data?.message || err?.message || 'Something went wrong. Please try again.';
             setError(msg);
         }
     };
@@ -63,10 +58,10 @@ const NewPost = ({ onCreated }) => {
     if (!isLoggedIn) return null;
 
     return (
-        <div className="post-upload-form">
-            <h2>New post</h2>
-            <form onSubmit={handleSubmit}>
-                <div className='form-div-post'>
+        <div className="new-post-wrapper">
+            <h2>New Post</h2>
+            <form onSubmit={handleSubmit} className="new-post-form">
+                <div className="form-group">
                     <label htmlFor="post-title">Title</label>
                     <input
                         type="text"
@@ -78,7 +73,7 @@ const NewPost = ({ onCreated }) => {
                     />
                 </div>
 
-                <div className='form-div-post'>
+                <div className="form-group">
                     <label htmlFor="post-description">What's new?</label>
                     <textarea
                         id="post-description"
@@ -89,12 +84,12 @@ const NewPost = ({ onCreated }) => {
                     />
                 </div>
 
-                <button className='post-button' type="submit" disabled={loading}>
-                    {loading ? 'Posting…' : 'Add new post'}
+                <button className="submit-btn" type="submit" disabled={loading}>
+                    {loading ? 'Posting...' : 'Add new post'}
                 </button>
 
-                {success && <div style={{ color: 'green' }}>New post was added!</div>}
-                {error && <div style={{ color: 'red' }}>{error}</div>}
+                {success && <div className="success-msg">New post was added!</div>}
+                {error && <div className="error-msg">{error}</div>}
             </form>
         </div>
     );

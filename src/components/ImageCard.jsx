@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_URL from "../api/api";
 import './imageCard.css';
-import editIcon from '../img/8666681_edit_icon.svg'
-import deleteIcon from '../img/9104213_close_cross_remove_delete_icon.svg'
+import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 
 const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
     const getOptimizedUrl = (url) => {
@@ -46,36 +45,36 @@ const ImageCard = ({ image, onClick, onEditClick, onDelete }) => {
             });
 
             if (response.status === 200) {
-                console.log("Image deleted successfully");
                 onDelete(image._id); 
-            } else {
-                console.error("Failed to delete image:", response.status);
             }
         } catch (error) {
             console.error("Error deleting image:", error);
         }
     };
 
-
     return (
         <div className="image-card" onClick={handleCardClick}>
-            {image.imageUrls && image.imageUrls.length > 0 ? (
-                <div className='image-div'>
+            <div className='image-div'>
+                {image.imageUrls && image.imageUrls.length > 0 ? (
                     <img src={getOptimizedUrl(image.imageUrls[0])} alt={image.title} />
-                </div>
-            ) : (
-                <p>No image available</p>
-            )}
+                ) : (
+                    <div className="no-image-placeholder">No image available</div>
+                )}
+
+                {isLoggedIn && (
+                    <div className='admin-actions'>
+                        <button className="admin-btn edit-btn" onClick={handleEditClick}>
+                            <FaRegEdit />
+                        </button>
+                        <button className="admin-btn delete-btn" onClick={handleDeleteClick}>
+                            <FaRegTrashAlt />
+                        </button>
+                    </div>
+                )}
+            </div>
             
             <h3>{image.title}</h3>
             <p>{image.description}</p>
-
-            {isLoggedIn && (
-                <div className='image-card-button'>
-                    <button className="icon-btn edit-btn" onClick={handleEditClick}><img src={editIcon} alt="" /></button>
-                    <button className="icon-btn delete-btn" onClick={handleDeleteClick}><img src={deleteIcon} alt="" /></button>
-                </div>
-            )}
 
             {image.availability === 'NOT_AVAILABLE' && (
                 <span className="sold-text">SOLD</span>

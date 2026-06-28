@@ -14,8 +14,6 @@ const Admin = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [availability, setAvailability] = useState('AVAILABLE'); 
-    
-    // NOVÉ: Stav pro rok (jako výchozí dáme aktuální rok, ať to ségra nemusí pořád překlikávat)
     const [year, setYear] = useState(new Date().getFullYear());
 
     useEffect(() => {
@@ -36,7 +34,6 @@ const Admin = () => {
             localStorage.setItem('token', token);
             setIsLoggedIn(true);
         } catch (error) {
-            console.error('Login error:', error.response?.data || error.message);
             setError('Check login or password');
         }
     };
@@ -49,8 +46,15 @@ const Admin = () => {
     };
 
     const handleFileChange = (e) => {
-        const selectedFiles = Array.from(e.target.files).slice(0, 5);
-        setImages(selectedFiles);
+        const selectedFiles = Array.from(e.target.files);
+        setImages((prevImages) => {
+            const combined = [...prevImages, ...selectedFiles];
+            return combined.slice(0, 5);
+        });
+    };
+
+    const handleRemoveImage = (indexToRemove) => {
+        setImages((prevImages) => prevImages.filter((_, index) => index !== indexToRemove));
     };
 
     const handleSubmit = async (e) => {
@@ -65,7 +69,6 @@ const Admin = () => {
         formData.append('title', title);
         formData.append('description', description);
         formData.append('availability', availability); 
-        // NOVÉ: Přidáme rok do dat pro odeslání na backend
         formData.append('year', year);
 
         images.forEach((image) => {
@@ -81,7 +84,7 @@ const Admin = () => {
 
             setLoading(true); 
 
-            const response = await axios.post(`${API_URL}/api/upload`, formData, {
+            await axios.post(`${API_URL}/api/upload`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
@@ -90,16 +93,13 @@ const Admin = () => {
 
             setLoading(false); 
             setSuccess(true);  
-            alert('Successfully loaded! 😍');
             setTitle('');
             setDescription('');
             setImages([]);
-            // Volitelně můžeme resetovat i rok a stav:
             setAvailability('AVAILABLE');
             setYear(new Date().getFullYear());
         } catch (error) {
             setLoading(false); 
-            console.error('Oops... something wrong:', error);
             setError('Hmmm... try again, it didnt end well 😅');
         }
     };
@@ -110,7 +110,7 @@ const Admin = () => {
                 <div className="login-form">
                     <h2>Admin Panel</h2>
                     <form onSubmit={handleLogin}>
-                        <div className='login-form-div'>
+                        <div className='form-div'>
                             <label htmlFor="username">Login</label>
                             <input
                                 type="text"
@@ -120,7 +120,7 @@ const Admin = () => {
                                 required
                             />
                         </div>
-                        <div className='login-form-div'>
+                        <div className='form-div'>
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
@@ -130,7 +130,7 @@ const Admin = () => {
                                 required
                             />
                         </div>
-                        {error && <div style={{ color: 'red' }}>{error}</div>}
+                        {error && <div className="error">{error}</div>}
                         <button className='button' type="submit">Enter</button>
                     </form>
                 </div>
@@ -140,7 +140,7 @@ const Admin = () => {
                     <form onSubmit={handleSubmit}>
                         <div className='form-div'>
                             <label htmlFor="title">Name</label>
-                            <input className='image-title'
+                            <input
                                 type="text"
                                 id="title"
                                 value={title}
@@ -150,7 +150,7 @@ const Admin = () => {
                         </div>
                         <div className='form-div'>
                             <label htmlFor="description">Description</label>
-                            <textarea className='image-description'
+                            <textarea
                                 id="description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
@@ -158,7 +158,6 @@ const Admin = () => {
                             />
                         </div>
                         
-                        {/* NOVÉ: Dropdown pro výběr roku */}
                         <div className='form-div'>
                             <label htmlFor="year">Year</label>
                             <select
@@ -167,7 +166,6 @@ const Admin = () => {
                                 onChange={(e) => setYear(e.target.value)}
                                 required
                             >
-                                {/* Vygeneruje roky 2024 až 2035 */}
                                 {Array.from({ length: 12 }, (_, i) => 2024 + i).map(y => (
                                     <option key={y} value={y}>{y}</option>
                                 ))}
@@ -189,19 +187,39 @@ const Admin = () => {
 
                         <div className='form-div'>
                             <label htmlFor="image">Picture</label>
-                            <input className='image-file'
+                            <input
                                 type="file"
                                 id="image"
                                 onChange={handleFileChange}
-                                required
                                 multiple
                             />
+                            
+                            {images.length > 0 && (
+                                <div className="preview-container">
+                                    {images.map((image, index) => (
+                                        <div key={index} className="preview-wrapper">
+                                            <img 
+                                                src={URL.createObjectURL(image)} 
+                                                alt={`preview-${index}`} 
+                                                className="preview-image" 
+                                            />
+                                            <button 
+                                                type="button" 
+                                                className="preview-remove-btn" 
+                                                onClick={() => handleRemoveImage(index)}
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <button className='button' type="submit" disabled={loading}>Upload Picture</button>
                         {loading && <div>Uploading...</div>}
                         {success && <div style={{ color: 'green' }}>Picture uploaded successfully!</div>}
-                        {error && <div style={{ color: 'red' }}>{error}</div>}
-                        <button className="button logout-btn" onClick={handleLogout}>
+                        {error && <div className="error">{error}</div>}
+                        <button type="button" className="button logout-btn" onClick={handleLogout}>
                             Logout
                         </button>
                     </form>

@@ -73,11 +73,9 @@ const Blog = () => {
         setPosts(posts.filter(post => post._id !== id));
     };
 
-    // Filtrace výstav
     const currentExhibitions = STATIC_EXHIBITIONS.filter(ex => ex.isCurrent);
     const pastExhibitions = STATIC_EXHIBITIONS.filter(ex => !ex.isCurrent);
 
-    // --- POHLED 2: DETAIL VÝSTAVY ---
     if (selectedExhibition) {
         return (
             <div className="blog-container exhibition-detail-container">
@@ -96,10 +94,13 @@ const Blog = () => {
                         <span className="meta-separator">|</span>
                         <span className="meta-location">{selectedExhibition.location}</span>
                     </div>
+                    <img
+                        src={selectedExhibition.coverImage}
+                        alt={selectedExhibition.title}
+                        className="detail-cover-image"
+                    />
 
                     <p className="detail-description">{selectedExhibition.fullDescription}</p>
-                    <p>Obrázky z výstavy:</p>
-                    <br />
                     <div className="detail-gallery">
                         {selectedExhibition.gallery.map((imgUrl, index) => (
                             <img key={index} src={imgUrl} alt={`Z výstavy ${index + 1}`} className="detail-gallery-image" />
@@ -110,7 +111,6 @@ const Blog = () => {
         );
     }
 
-    // --- POHLED 1: HLAVNÍ STRÁNKA (Novinky + Výstavy) ---
     return (
         <div className="blog-container">
             <Helmet>
@@ -118,7 +118,6 @@ const Blog = () => {
                 <meta name="description" content="Přečtěte si novinky a informace o mých výstavách." />
             </Helmet>
 
-            {/* SEKCE 1: DYNAMICKÉ NOVINKY (POSTS) */}
             <div className="news-section">
                 <h1 className="section-title">Novinky</h1>
                 <div className="blog-new-post">
@@ -162,7 +161,6 @@ const Blog = () => {
 
             <hr className="section-divider" />
 
-            {/* SEKCE 2: AKTUÁLNÍ VÝSTAVA */}
             {currentExhibitions.length > 0 && (
                 <div className="exhibitions-section">
                     <h2 className="section-title">Aktuální výstava</h2>
@@ -187,7 +185,6 @@ const Blog = () => {
                 </div>
             )}
 
-            {/* SEKCE 3: PŘEDCHOZÍ VÝSTAVY */}
             {pastExhibitions.length > 0 && (
                 <div className="exhibitions-section past-exhibitions">
                     <h2 className="section-title">Předchozí výstavy</h2>
