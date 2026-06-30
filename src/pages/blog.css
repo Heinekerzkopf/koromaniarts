@@ -236,6 +236,46 @@ h2 {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* --- ODKAZY VE VÝSTAVĚ --- */
+.detail-links {
+    margin-bottom: 50px;
+    text-align: left;
+    border-top: 1px solid #eaeaea;
+    padding-top: 20px;
+}
+
+.detail-links-title {
+    font-size: 13px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.detail-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-link-item {
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: 2px;
+    color: #111;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    width: fit-content;
+}
+
+.detail-link-item:hover {
+    color: #f39c12;
+    transform: translateX(3px); 
+}
+
 /* --- RESPONZIVITA (Mobily a tablety) --- */
 @media (max-width: 768px) {
     .exhibition-card {
